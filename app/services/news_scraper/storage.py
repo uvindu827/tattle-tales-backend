@@ -38,11 +38,12 @@ def save_articles(new_articles: list[NewsArticle], path: str = DEFAULT_STORE_PAT
         existing[article.id] = article.to_dict()
         added += 1
 
-        parent_dir = os.path.dirname(path)
-        if parent_dir:
+    parent_dir = os.path.dirname(path)
+
+    if parent_dir:
             os.makedirs(parent_dir, exist_ok=True)
 
-        with open(path, "w", encoding="utf-8") as f:
+    with open(path, "w", encoding="utf-8") as f:
             json.dump(
                 list(existing.values()), 
                 f,
@@ -52,5 +53,5 @@ def save_articles(new_articles: list[NewsArticle], path: str = DEFAULT_STORE_PAT
 
             logger.info("Saved %d new articles, total articles: %d", added, len(existing))
 
-            return added
+            return added       
 
