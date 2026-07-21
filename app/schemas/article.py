@@ -7,7 +7,7 @@ class ArticleOut(BaseModel):
     url: str = Field(..., description="Link to the original article")
     published_at: str = Field(..., description="Published time of the article in source")
     summary: str = Field(..., description="Short summary taken from the rss feed")
-    fullText: str = Field(..., description="Extracted full article")
+    full_text: str = Field(..., description="Extracted full article")
     scraped_at: str = Field(..., description="Time that article is scraped")
 
     class Config:
