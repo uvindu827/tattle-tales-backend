@@ -4,3 +4,4 @@ pydantic-settings
 feedparser
 trafilatura
 requests
+numpy
