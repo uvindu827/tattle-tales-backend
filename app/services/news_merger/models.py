@@ -25,6 +25,7 @@ class MergedNews:
 
         return hashlib.sha256(combined_id.encode("utf-8")).hexdigest[:16]
     
+    @classmethod
     def now_iso() -> str:
         """
         helper function to return current date time
