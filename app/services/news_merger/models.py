@@ -23,9 +23,16 @@ class MergedNews:
 
         combined_id = ",".join(sorted_ids)
 
-        return hashlib.sha256(combined_id.encode("utf-8")).hexdigest[:16]
+        return hashlib.sha256(combined_id.encode("utf-8")).hexdigest()[:16]
+ 
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "MergedNews":
+        return cls(**data)
     
-@classmethod
+
 def now_iso() -> str:
     """
     helper function to return current date time

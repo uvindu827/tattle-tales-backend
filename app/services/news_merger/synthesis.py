@@ -87,7 +87,7 @@ def synthesize_cluster(articles: list[dict]) -> MergedNews:
         response_text = generate_text(prompt, system=SYNTHESIS_PROMPT)
         headline, summary = _parse_synthesis_prompt(response_text, fallback_title=articles[0]["title"])
 
-        return MergedNews(
+    return MergedNews(
             id=MergedNews.make_merged_news_id(articel_ids),
             headline=headline,
             merged_summary=summary,
@@ -97,6 +97,6 @@ def synthesize_cluster(articles: list[dict]) -> MergedNews:
             earliest_published=min(published_dates) if published_dates else "",
             latest_published=max(published_dates) if published_dates else "",
             merged_at=now_iso(),
-        )
+        )   
 
 

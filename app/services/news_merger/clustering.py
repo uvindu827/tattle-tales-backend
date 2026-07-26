@@ -42,10 +42,10 @@ def cluster_article(
     Group the articles in to same cluster that are about same event
     """
 
-    if not article:
+    if not articles:
         return []
 
-    clusters = list[dict] = []
+    clusters: list[dict] = []
 
     for article in articles:
         try:
@@ -73,7 +73,7 @@ def cluster_article(
                 best_cluster_index = i
 
         if best_cluster_index is not None and best_similliarity >= similliarity_threshold:
-            cluster = cluster[best_cluster_index]
+            cluster = clusters[best_cluster_index]
             cluster["articles"].append(article)
             cluster["embeddings"].append(embedding)
             cluster["centroid"] = np.mean(cluster["embeddings"], axis=0).tolist()

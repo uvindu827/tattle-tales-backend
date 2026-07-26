@@ -32,6 +32,11 @@ def save_merged_news(new_news: list[MergedNews], path: str = DEFAULT_STORE_PATH)
     added = 0
 
     for news in new_news:
+        #debugging lines for to_dict error
+        print(type(news))
+        print(news)
+        print(isinstance(news, MergedNews))
+
         if news.id in existing:
             continue
 
