@@ -1,7 +1,7 @@
 import logging
 import numpy as np
 
-from .ollama_client import get_embedding
+from ..common.ollama_client import get_embedding
 
 logger = logging.getLogger(__name__)
 
