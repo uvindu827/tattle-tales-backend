@@ -18,6 +18,7 @@ class NarrationSegment:
 class NarrationScript:
     id: str
     headline: str
+    category: str
     source_names: list[str]
     segments: list[NarrationSegment]
     created_at: str
@@ -32,6 +33,7 @@ class NarrationScript:
         return cls(
             id = data["id"],
             headline = data["headline"],
+            category= data["category"],
             source_names = data["source_names"],
             segments = segments,
             created_at = data["created_at"],
