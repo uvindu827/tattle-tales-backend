@@ -23,12 +23,19 @@ class MergedNews:
 
         combined_id = ",".join(sorted_ids)
 
-        return hashlib.sha256(combined_id.encode("utf-8")).hexdigest[:16]
-    
-    @classmethod
-    def now_iso() -> str:
-        """
-        helper function to return current date time
-        """
+        return hashlib.sha256(combined_id.encode("utf-8")).hexdigest()[:16]
+ 
+    def to_dict(self) -> dict:
+        return asdict(self)
 
-        return datetime.now(timezone.utc).isoformat()
+    @classmethod
+    def from_dict(cls, data: dict) -> "MergedNews":
+        return cls(**data)
+    
+
+def now_iso() -> str:
+    """
+    helper function to return current date time
+    """
+
+    return datetime.now(timezone.utc).isoformat()

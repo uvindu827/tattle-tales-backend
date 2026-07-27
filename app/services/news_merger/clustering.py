@@ -15,7 +15,7 @@ def cosine_similliarity(vec_a: list[float], vec_b: list[float]) -> float:
     a = np.array(vec_a)
     b = np.array(vec_b)
 
-    dot_product = a.b
+    dot_product = np.dot(a, b)
 
     magnitude_a = np.linalg.norm(a)
     magnitude_b = np.linalg.norm(b)
@@ -42,15 +42,30 @@ def cluster_article(
     Group the articles in to same cluster that are about same event
     """
 
-    clusters = list[dict] = []
+    if not articles:
+        return []
+
+    clusters: list[dict] = []
 
     for article in articles:
-        embedding = _embed_article(article)
+        try:
+            embedding = _embed_article(article)
+
+        except Exception as e:
+
+            logger.error("Could not embed article '%s': %s", article["title"], e)
+
+            clusters.append({"articles": [article], "embeddings": [], "centroid": None})
+
+            continue
 
         best_cluster_index = None
         best_similliarity = -1.0
 
         for i, cluster in enumerate(clusters):
+            if cluster["centroid"] is None:
+                continue
+
             similliarity = cosine_similliarity(embedding, cluster["centroid"])
 
             if similliarity > best_similliarity:
@@ -60,14 +75,13 @@ def cluster_article(
         if best_cluster_index is not None and best_similliarity >= similliarity_threshold:
             cluster = clusters[best_cluster_index]
             cluster["articles"].append(article)
-
             cluster["embeddings"].append(embedding)
             cluster["centroid"] = np.mean(cluster["embeddings"], axis=0).tolist()
 
             logger.info(
                 "Article '%s' joined an existing cluster (similliarity: %.3f)",
                 article["title"][:50],
-                best_similliarity
+                best_similliarity,
             )
 
         else:
@@ -77,15 +91,11 @@ def cluster_article(
                 "centroid": embedding
             })
 
-            logger.info(
-                "Article '%s' started a new cluster (best similliarity: %.3f)",
-                article["title"][:50],
-                best_similliarity if best_similliarity is not None else 0.0
-            )
+            logger.info("Article '%s' started a NEW cluster", article["title"][:50])
 
     return [cluster["articles"] for cluster in clusters]
 
-
+            
 
 
 
