@@ -1,6 +1,6 @@
 import logging
 
-from .ollama_client import generate_text
+from ..common.ollama_client import generate_text
 from .models import MergedNews, now_iso
 
 logger = logging.getLogger(__name__)
