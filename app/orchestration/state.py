@@ -11,6 +11,6 @@ class PipelineState(TypedDict):
     scripts_narrated: int
     new_scripts: int
 
-    logs: Annotated[list[str], operator.add]
+    log: Annotated[list[str], operator.add]
 
     
