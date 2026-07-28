@@ -6,3 +6,5 @@ trafilatura
 requests
 numpy
 nltk
+langgraph
+langchain
