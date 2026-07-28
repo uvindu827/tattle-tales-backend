@@ -18,7 +18,7 @@ def _ensure_punkt_available():
 
 _ensure_punkt_available()
 
-def split_into_sentences(text: str) -> list[Str]:
+def split_into_sentences(text: str) -> list[str]:
     if not text or not text.strip():
         return []
 
@@ -30,7 +30,7 @@ def build_segments(text: str) -> list[NarrationSegment]:
     sentences = split_into_sentences(text)
 
     return[
-        NarrationSegment(idx=i, text=sentences)
+        NarrationSegment(idx=i, text=sentence)
         for i, sentence in enumerate(sentences)
     ]
 

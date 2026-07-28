@@ -3,6 +3,7 @@ from app.config import Settings
 from app.routers import health
 from app.routers import news
 from app.routers import merger
+from app.routers import story_maker
 
 app = FastAPI(
     title=Settings.app_name,
@@ -12,6 +13,7 @@ app = FastAPI(
 app.include_router(health.router, prefix="/api/v1", tags=["Health Check"])
 app.include_router(news.router, prefix="/api/v1", tags=["News"])
 app.include_router(merger.router, prefix="/api/v1", tags=["Merger"])
+app.include_router(story_maker.router, prefix="/api/v1", tags=["Story-maker"])
 
 @app.get("/")
 def root():

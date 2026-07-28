@@ -27,7 +27,7 @@ def make_all_narrations() -> list[NarrationScript]:
         script = create_narration_script(story)
         scripts.append(script)
 
-        return scripts
+    return scripts
 
 if __name__ == "__main__":
     logging.basicConfig(
