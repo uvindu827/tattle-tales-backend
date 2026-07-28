@@ -1,4 +1,5 @@
-from typing import TypedDict
+from typing import TypedDict, Annotated
+import operator
 
 class PipelineState(TypedDict):
     articles_scraped: int
@@ -10,6 +11,6 @@ class PipelineState(TypedDict):
     scripts_narrated: int
     new_scripts: int
 
-    logs: list[str]
+    logs: Annotated[list[str], operator.add]
 
     
