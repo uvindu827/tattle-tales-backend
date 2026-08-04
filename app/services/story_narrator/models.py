@@ -5,6 +5,7 @@ class Explanation:
     question: str
     answer_text: str
     source_title: str
+    source_url: str
     found: bool
 
     def to_dict(self) -> dict:
