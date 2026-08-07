@@ -5,6 +5,7 @@ from app.routers import news
 from app.routers import merger
 from app.routers import story_maker
 from app.routers import pipeline
+from app.routers import narrator
 
 app = FastAPI(
     title=Settings.app_name,
@@ -16,6 +17,7 @@ app.include_router(news.router, prefix="/api/v1", tags=["News"])
 app.include_router(merger.router, prefix="/api/v1", tags=["Merger"])
 app.include_router(story_maker.router, prefix="/api/v1", tags=["Story-maker"])
 app.include_router(pipeline.router, prefix="/api/v1", tags=["Pipeline"])
+app.include_router(narrator.router, prefix="/api/v1", tags=["Narrator"])
 
 @app.get("/")
 def root():
