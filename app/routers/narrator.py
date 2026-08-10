@@ -29,7 +29,7 @@ def _build_step_reslts(thread_id: str, graph_results: dict) -> NarratorStepResul
     if "__interrupt__" not in graph_results:
         return NarratorStepResult(thread_id = thread_id, finished=True)
 
-    payload = graph_results["__interrupt__"][0].value()
+    payload = graph_results["__interrupt__"][0].value
 
     if payload["type"] == "segment":
         return NarratorStepResult(
@@ -68,7 +68,7 @@ def start_session(request: StartSessionRequest):
         "script_id": script.id,
         "headline": script.headline,
         "source_names": script.source_names,
-        "segments": script.segments,
+        "segments": [s.to_dict() for s in script.segments],
         "current_segment_idx": 0,
         "total_segments": len(script.segments),
         "is_finished": False,

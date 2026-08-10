@@ -9,7 +9,7 @@ class AskQuestionRequest(BaseModel):
 
 class NarratorStepResult(BaseModel):
     thread_id:str = Field(..., description="Identifies the session")
-    finished:str = Field(..., description="True when every segment narrated")
+    finished:bool = Field(..., description="True when every segment narrated")
 
     type:Optional[str] = Field(None, description="segment or explanation")
 

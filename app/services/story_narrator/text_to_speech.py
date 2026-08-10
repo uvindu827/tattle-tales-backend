@@ -16,7 +16,7 @@ class TTSError(Exception):
 
 async def _synthesize_async(text:str, output_path:str, voice:str) -> None:
 
-    communicate = edge_tts.communicate(text, voice)
+    communicate = edge_tts.Communicate(text, voice)
 
     await communicate.save(output_path)
 
