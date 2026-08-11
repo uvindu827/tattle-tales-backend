@@ -24,3 +24,9 @@ class NarratorStepResult(BaseModel):
     answer: Optional[str] = None
     source_title: Optional[str] = None
     source_url: Optional[str] = None
+
+class FullAudioResult(BaseModel):
+    script_id:str = Field(..., description="Id of the narration scripts")
+    audio_url:str = Field(..., description="URL to fetch full narration audio")
+
+

@@ -7,9 +7,10 @@ from fastapi.responses import FileResponse
 from langgraph.types import Command
 
 from ..services.story_narrator.graph import Build_session_graph
+from ..services.story_narrator.full_audio import generate_full_audio
 from ..services.story_maker.storage import load_existing as load_script
 from ..services.story_maker.models import NarrationScript
-from ..schemas.narrator_session import StartSessionRequest, AskQuestionRequest, NarratorStepResult
+from ..schemas.narrator_session import StartSessionRequest, AskQuestionRequest, NarratorStepResult, FullAudioResult
 
 logger = logging.getLogger(__name__)
 
@@ -111,3 +112,20 @@ def get_audio(filename: str):
         raise HTTPException(status_code=404, detail=f"Audio file '{filename}' not found")
 
     return FileResponse(path, media_type="audio/mpeg")
+
+@router.post("/narrator/scripts/{script_id}/full-audio", response_model=FullAudioResult)
+def get_full_audio(script_id: str):
+    scripts = load_script()
+    script_data = scripts.get(script_id)
+
+    if script_data is None:
+        raise HTTPException(status_code=404, detail=f"Narration script '{script_id}' not found")
+
+    script = NarrationScript.from_dict(script_data)
+
+    audio_path = generate_full_audio(script)
+
+    return FullAudioResult(
+        script_id=script_id,
+        audio_url=_audio_url(audio_path)
+    )
